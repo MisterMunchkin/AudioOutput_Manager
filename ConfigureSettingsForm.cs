@@ -20,7 +20,6 @@ namespace AudioOutput_Manager
         private RegisterGlobalHotkey RegisterGlobalHotkey;
         private readonly CoreAudioController audioController;
         private List<CoreAudioDevice> audioDeviceList = new List<CoreAudioDevice>();
-        private Settings settings = new Settings();
 
         public ConfigureSettingsForm()
         {
@@ -45,7 +44,7 @@ namespace AudioOutput_Manager
                 KeyModifier modifier = (KeyModifier)((int)m.LParam & 0xFFFF);       // The modifier of the hotkey that was pressed.
                 int id = m.WParam.ToInt32();
 
-                CycledAudioOutput_ListView.Items[]
+                MessageBox.Show("Hot key pressed!");
             }
         }
 
@@ -59,6 +58,25 @@ namespace AudioOutput_Manager
         private void CycledAudioOutput_ListView_Load()
         {
             CycledAudioOutput_ListView.Clear();
+            var savedCycledAudio = Properties.Settings.Default.CycledList;
+
+            if (savedCycledAudio != null)
+            {
+                foreach (var savedItemString in savedCycledAudio)
+                {
+                    var savedItem = savedItemString.Split(',');
+
+                    ListViewItem item = new ListViewItem(savedItem[1]);
+
+                    item.SubItems.Add(savedItem[0]);
+
+                    CycledAudioOutput_ListView.Items.Add(item);
+                }
+            } 
+            else
+            {
+                Properties.Settings.Default.CycledList = new List<string>();
+            }
         }
 
         private void AudioOutput_ListView_DoubleClick(object sender, System.Windows.Forms.MouseEventArgs e)
@@ -84,18 +102,26 @@ namespace AudioOutput_Manager
 
         private void AddToCycleButton_Click(object sender, EventArgs e)
         {
-            var name = AudioOutput_ListView.SelectedItems[0].SubItems[0].Text;
-            var id = AudioOutput_ListView.SelectedItems[0].SubItems[1].Text;
+            AudioControllerViewModel audioData = new AudioControllerViewModel()
+            {
+                Id = AudioOutput_ListView.SelectedItems[0].SubItems[1].Text,
+                Name = AudioOutput_ListView.SelectedItems[0].SubItems[0].Text
+            };
 
-            ListViewItem item = new ListViewItem(name);
+            ListViewItem item = new ListViewItem(audioData.Name);
 
-            item.SubItems.Add(id);
+            item.SubItems.Add(audioData.Id);
 
             CycledAudioOutput_ListView.Items.Add(item);
+
+            Properties.Settings.Default.CycledList.Add(audioData.Id + ',' + audioData.Name);
         }
 
-        private void AudioOutput_ListView_SelectedIndexChanged(object sender, EventArgs e)
+        private void AudioOutput_ListView_SelectedIndexChanged(object sender, EventArgs e){}
+
+        private void SaveChanges_Click(object sender, EventArgs e)
         {
+            Properties.Settings.Default.Save();
         }
     }
 }

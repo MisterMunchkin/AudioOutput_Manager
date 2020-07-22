@@ -10,9 +10,9 @@ namespace AudioOutput_Manager
     public class AudioControllerViewModel
     {
         [Required]
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         [Required]
-        public int Name { get; set; }
+        public string Name { get; set; }
     }
 }

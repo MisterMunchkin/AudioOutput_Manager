@@ -17,7 +17,7 @@ namespace AudioOutput_Manager.Utility
         {
             int.TryParse(ConfigurationManager.AppSettings.Get("hotkeyId"), out int hotkeyId);
 
-            RegisterHotKey(Handle, hotkeyId, (int)KeyModifier.WinKey, Keys.Down.GetHashCode());
+            RegisterHotKey(Handle, hotkeyId, fsModifiers, vk);
         }
     }
 }
