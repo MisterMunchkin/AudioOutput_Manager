@@ -4,18 +4,28 @@ namespace AudioOutput_Manager.Utility
 {
     public class HotKeyProcesses
     {
-        public ListViewItem GetNextCycledIndex(int currentIndex, ListView list)
+        /// <summary>
+        /// - Checks the current index in default settings if it is still lesser than the cycled list count
+        /// - if it is then it will increment the current index and assign it to newIndex
+        /// - default settings index is updated
+        /// - return the guid of the data by splitting {Id,name} is the format of the string
+        /// </summary>
+        /// <param name="currentIndex"></param>
+        /// <returns></returns>
+        public string GetNextCycledAudioId()
         {
-            int newIndex = 0;
-            if (currentIndex < list.Items.Count - 1)
+            if (Properties.Settings.Default.SelectedCycledIndex < Properties.Settings.Default.CycledList.Count - 1)
             {
-                newIndex = currentIndex + 1;
+                Properties.Settings.Default.SelectedCycledIndex++;
+            } 
+            else
+            {
+                Properties.Settings.Default.SelectedCycledIndex = 0;
             }
 
-            Properties.Settings.Default.SelectedCycledIndex = newIndex;
+            var result = Properties.Settings.Default.CycledList[Properties.Settings.Default.SelectedCycledIndex].Split(',');
 
-            ListViewItem result = list.Items[newIndex];
-            return result;
+            return result[0];
         }
     }
 }

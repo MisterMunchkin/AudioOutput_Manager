@@ -35,13 +35,15 @@ namespace AudioOutput_Manager.Utility
             {
                 Properties.Settings.Default.CycledList = new List<string>();
             }
-            else
+            else if (Properties.Settings.Default.CycledList.Count > 0)
             {
                 string defaultAudio = Properties.Settings.Default.CycledList[Properties.Settings.Default.SelectedCycledIndex];
 
                 var defaultAudioArray = defaultAudio.Split(',');
 
-                CoreAudioDevice defaultCoreAudioDevice = coreAudioDeviceList.Find(a => a.Id.Equals(defaultAudioArray[0]));
+                Guid guid = new Guid(defaultAudioArray[0]);
+
+                CoreAudioDevice defaultCoreAudioDevice = coreAudioDeviceList.Find(a => a.Id.Equals(guid));
 
                 coreAudioController.SetDefaultDevice(defaultCoreAudioDevice);
             }
