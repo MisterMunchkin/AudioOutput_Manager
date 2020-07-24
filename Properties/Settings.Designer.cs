@@ -25,6 +25,17 @@ namespace AudioOutput_Manager.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Generic.List<System.String> CycledList {
+            get {
+                return ((global::System.Collections.Generic.List<System.String>)(this["CycledList"]));
+            }
+            set {
+                this["CycledList"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public int SelectedCycledIndex {
             get {
@@ -32,17 +43,6 @@ namespace AudioOutput_Manager.Properties {
             }
             set {
                 this["SelectedCycledIndex"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.Collections.Generic.List<System.String> CycledList {
-            get {
-                return ((global::System.Collections.Generic.List<System.String>)(this["CycledList"]));
-            }
-            set {
-                this["CycledList"] = value;
             }
         }
     }

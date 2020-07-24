@@ -1,7 +1,5 @@
-﻿using AudioOutput_Manager.Enum;
-using System;
+﻿using System;
 using System.Configuration;
-using System.Windows.Forms;
 
 namespace AudioOutput_Manager.Utility
 {

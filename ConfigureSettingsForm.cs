@@ -1,10 +1,6 @@
 ﻿using AudioOutput_Manager.Enum;
 using AudioOutput_Manager.Utility;
-using AudioSwitcher.AudioApi.CoreAudio;
 using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace AudioOutput_Manager
@@ -17,21 +13,21 @@ namespace AudioOutput_Manager
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         private static extern bool UnregisterHotKey(IntPtr hWnd, int id);
 
-        private RegisterGlobalHotkey RegisterGlobalHotkey;
-        private readonly CoreAudioController audioController;
-        private List<CoreAudioDevice> audioDeviceList = new List<CoreAudioDevice>();
+        private RegisterGlobalHotkey registerGlobalHotkey;
+        private CoreAudioProcesses coreAudioProcesses;
+        private HotKeyProcesses hotKeyProcesses = new HotKeyProcesses();
 
         public ConfigureSettingsForm()
         {
             InitializeComponent();
 
-            this.RegisterGlobalHotkey = new RegisterGlobalHotkey();
-            audioController = new CoreAudioController();
+            this.registerGlobalHotkey = new RegisterGlobalHotkey();
+            this.coreAudioProcesses = new CoreAudioProcesses();
 
             AudioOutput_ListView_Load();
             CycledAudioOutput_ListView_Load();
 
-            RegisterGlobalHotkey.Register(this.Handle, (int)KeyModifier.Control, Keys.PageDown.GetHashCode());
+            registerGlobalHotkey.Register(this.Handle, (int)KeyModifier.Control, Keys.PageDown.GetHashCode());
         }
 
         protected override void WndProc(ref Message m)
@@ -44,7 +40,11 @@ namespace AudioOutput_Manager
                 KeyModifier modifier = (KeyModifier)((int)m.LParam & 0xFFFF);       // The modifier of the hotkey that was pressed.
                 int id = m.WParam.ToInt32();
 
-                MessageBox.Show("Hot key pressed!");
+                var nextAudioCycle = hotKeyProcesses.GetNextCycledIndex(Properties.Settings.Default.SelectedCycledIndex, CycledAudioOutput_ListView);
+
+                var device = coreAudioProcesses.GetCoreAudioDevice(nextAudioCycle.SubItems[1].Text);
+
+                coreAudioProcesses.SetDefaultDevice(device);
             }
         }
 
@@ -60,37 +60,28 @@ namespace AudioOutput_Manager
             CycledAudioOutput_ListView.Clear();
             var savedCycledAudio = Properties.Settings.Default.CycledList;
 
-            if (savedCycledAudio != null)
+            foreach (var savedItemString in savedCycledAudio)
             {
-                foreach (var savedItemString in savedCycledAudio)
-                {
-                    var savedItem = savedItemString.Split(',');
+                var savedItem = savedItemString.Split(',');
 
-                    ListViewItem item = new ListViewItem(savedItem[1]);
+                ListViewItem item = new ListViewItem(savedItem[1]);
 
-                    item.SubItems.Add(savedItem[0]);
+                item.SubItems.Add(savedItem[0]);
 
-                    CycledAudioOutput_ListView.Items.Add(item);
-                }
-            } 
-            else
-            {
-                Properties.Settings.Default.CycledList = new List<string>();
+                CycledAudioOutput_ListView.Items.Add(item);
             }
         }
 
         private void AudioOutput_ListView_DoubleClick(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            var selectedItem = audioDeviceList.Where(a => a.FullName.Equals(AudioOutput_ListView.SelectedItems.ToString())).FirstOrDefault();
+            var selectedItem = coreAudioProcesses.GetCoreAudioDevice(AudioOutput_ListView.SelectedItems[0].SubItems[1].Text);
 
-            audioController.SetDefaultDevice(selectedItem);
+            coreAudioProcesses.SetDefaultDevice(selectedItem);
         }
 
         private void GetAudioPlaybackDevices()
         {
-            audioDeviceList = audioController.GetPlaybackDevices().ToList();
-
-            foreach (var audioDevice in audioDeviceList)
+            foreach (var audioDevice in coreAudioProcesses.coreAudioDeviceList)
             {
                 ListViewItem item = new ListViewItem(audioDevice.FullName);
 
@@ -117,7 +108,9 @@ namespace AudioOutput_Manager
             Properties.Settings.Default.CycledList.Add(audioData.Id + ',' + audioData.Name);
         }
 
-        private void AudioOutput_ListView_SelectedIndexChanged(object sender, EventArgs e){}
+        private void AudioOutput_ListView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+        }
 
         private void SaveChanges_Click(object sender, EventArgs e)
         {
