@@ -88,11 +88,14 @@ namespace AudioOutput_Manager
             KeyModifier modifier = (KeyModifier)((int)lParam & 0xFFFF);       // The modifier of the hotkey that was pressed.
             int id = wParam.ToInt32();
 
-            var nextAudioCycleId = hotKeyProcesses.GetNextCycledAudioId();
+            if (Properties.Settings.Default.CycledList.Count > 0)
+            {
+                var nextAudioCycleId = hotKeyProcesses.GetNextCycledAudioId();
 
-            var device = coreAudioProcesses.GetCoreAudioDevice(nextAudioCycleId);
+                var device = coreAudioProcesses.GetCoreAudioDevice(nextAudioCycleId);
 
-            coreAudioProcesses.SetDefaultDevice(device);
+                coreAudioProcesses.SetDefaultDevice(device);
+            }
         }
 
         /// <summary>
