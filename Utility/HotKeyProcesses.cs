@@ -1,6 +1,4 @@
-﻿using System.Windows.Forms;
-
-namespace AudioOutput_Manager.Utility
+﻿namespace AudioOutput_Manager.Utility
 {
     public class HotKeyProcesses
     {
@@ -17,7 +15,7 @@ namespace AudioOutput_Manager.Utility
             if (Properties.Settings.Default.SelectedCycledIndex < Properties.Settings.Default.CycledList.Count - 1)
             {
                 Properties.Settings.Default.SelectedCycledIndex++;
-            } 
+            }
             else
             {
                 Properties.Settings.Default.SelectedCycledIndex = 0;
