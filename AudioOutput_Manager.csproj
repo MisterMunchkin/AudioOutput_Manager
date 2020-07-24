@@ -57,7 +57,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AudioControllerViewModel.cs" />
+    <Compile Include="Utility\ConfigManager.cs" />
+    <Compile Include="Utility\CoreAudioProcesses.cs" />
+    <Compile Include="ViewModel\AudioControllerViewModel.cs" />
     <Compile Include="Enum\KeyModifier.cs" />
     <Compile Include="ConfigureSettingsForm.cs">
       <SubType>Form</SubType>
@@ -67,7 +69,6 @@
     </Compile>
     <Compile Include="Utility\HotKeyProcesses.cs" />
     <Compile Include="Utility\RegisterGlobalHotkey.cs" />
-    <Compile Include="Utility\Settings.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

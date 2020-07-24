@@ -33,6 +33,7 @@
             this.CycledAudioOutput_ListView = new System.Windows.Forms.ListView();
             this.AddToCycleButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
+            this.SaveChanges = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // AudioOutput_ListView
@@ -85,11 +86,22 @@
             this.label2.TabIndex = 5;
             this.label2.Text = "Cycled audio playback devices";
             // 
+            // SaveChanges
+            // 
+            this.SaveChanges.Location = new System.Drawing.Point(390, 420);
+            this.SaveChanges.Name = "SaveChanges";
+            this.SaveChanges.Size = new System.Drawing.Size(145, 23);
+            this.SaveChanges.TabIndex = 6;
+            this.SaveChanges.Text = "Save Changes";
+            this.SaveChanges.UseVisualStyleBackColor = true;
+            this.SaveChanges.Click += new System.EventHandler(this.SaveChanges_Click);
+            // 
             // ConfigureSettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.SaveChanges);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.AddToCycleButton);
             this.Controls.Add(this.CycledAudioOutput_ListView);
@@ -109,5 +121,6 @@
         private System.Windows.Forms.ListView CycledAudioOutput_ListView;
         private System.Windows.Forms.Button AddToCycleButton;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button SaveChanges;
     }
 }
