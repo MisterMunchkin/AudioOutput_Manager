@@ -129,9 +129,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="settings.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\MyIcon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
