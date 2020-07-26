@@ -10,7 +10,7 @@ using System.Windows;
 [assembly: AssemblyTitle("AudioOutput_Manager")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Dbois")]
 [assembly: AssemblyProduct("AudioOutput_Manager")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
