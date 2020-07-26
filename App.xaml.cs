@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.Win32;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Forms;
 using Application = System.Windows.Application;
@@ -13,12 +14,14 @@ namespace AudioOutput_Manager
     {
         private NotifyIcon notifyIcon;
         private bool isExit;
+        private readonly RegistryKey rkApp = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
 
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
             MainWindow = new MainWindow();
             MainWindow.Closing += MainWindow_Closing;
+            ShowMainWindow();
 
             notifyIcon = new NotifyIcon();
             notifyIcon.DoubleClick += (s, args) => ShowMainWindow();
@@ -26,6 +29,8 @@ namespace AudioOutput_Manager
             notifyIcon.Visible = true;
 
             CreateContextMenu();
+
+            rkApp.SetValue("AudioOutput_Manager", System.Windows.Forms.Application.ExecutablePath.ToString());
         }
 
         private void CreateContextMenu()

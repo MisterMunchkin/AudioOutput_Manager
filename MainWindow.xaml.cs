@@ -15,7 +15,7 @@ namespace AudioOutput_Manager
         private CoreAudioProcesses coreAudioProcesses;
         private RegisterGlobalHotkey registerGlobalHotkey;
         private HwndSource hwndSource;
-        private HotKeyProcesses hotKeyProcesses;
+        private readonly HotKeyProcesses hotKeyProcesses;
 
         public MainWindow()
         {
