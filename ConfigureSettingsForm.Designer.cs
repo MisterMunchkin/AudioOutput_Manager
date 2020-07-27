@@ -34,6 +34,7 @@
             this.AddToCycleButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.SaveChanges = new System.Windows.Forms.Button();
+            this.DeleteSelected = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // AudioOutput_ListView
@@ -96,11 +97,22 @@
             this.SaveChanges.UseVisualStyleBackColor = true;
             this.SaveChanges.Click += new System.EventHandler(this.SaveChanges_Click);
             // 
+            // DeleteSelected
+            // 
+            this.DeleteSelected.Location = new System.Drawing.Point(614, 37);
+            this.DeleteSelected.Name = "DeleteSelected";
+            this.DeleteSelected.Size = new System.Drawing.Size(96, 23);
+            this.DeleteSelected.TabIndex = 7;
+            this.DeleteSelected.Text = "Delete Selected";
+            this.DeleteSelected.UseVisualStyleBackColor = true;
+            this.DeleteSelected.Click += new System.EventHandler(this.DeleteSelected_Click);
+            // 
             // ConfigureSettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.DeleteSelected);
             this.Controls.Add(this.SaveChanges);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.AddToCycleButton);
@@ -122,5 +134,6 @@
         private System.Windows.Forms.Button AddToCycleButton;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button SaveChanges;
+        private System.Windows.Forms.Button DeleteSelected;
     }
 }
