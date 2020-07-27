@@ -6,7 +6,7 @@ namespace AudioOutput_Manager
 {
     public partial class ConfigureSettingsForm : Form
     {
-        private CoreAudioProcesses coreAudioProcesses;
+        private readonly CoreAudioProcesses coreAudioProcesses;
 
         public ConfigureSettingsForm()
         {
