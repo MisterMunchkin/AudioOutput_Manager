@@ -88,5 +88,14 @@ namespace AudioOutput_Manager
 
             MessageBox.Show("Changes Saved!");
         }
+
+        private void DeleteSelected_Click(object sender, EventArgs e)
+        {
+            var selectedItem = CycledAudioOutput_ListView.SelectedItems[0];
+            string selectedStringItem = Utility.Utility.GenerateCycledListDefaultPropertyString(selectedItem);
+
+            CycledAudioOutput_ListView.Items.Remove(selectedItem);
+            Properties.Settings.Default.CycledList.Remove(selectedStringItem);
+        }
     }
 }
