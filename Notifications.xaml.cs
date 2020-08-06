@@ -37,5 +37,10 @@ namespace AudioOutput_Manager
             this.Show();
             this.Topmost = true;
         }
+
+        private void DoubleAnimationUsingKeyFrames_Completed(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
