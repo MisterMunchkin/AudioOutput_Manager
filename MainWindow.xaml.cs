@@ -16,6 +16,7 @@ namespace AudioOutput_Manager
         private RegisterGlobalHotkey registerGlobalHotkey;
         private HwndSource hwndSource;
         private readonly HotKeyProcesses hotKeyProcesses;
+        private Notifications notifications;
 
         public MainWindow()
         {
@@ -95,6 +96,9 @@ namespace AudioOutput_Manager
                 var device = coreAudioProcesses.GetCoreAudioDevice(nextAudioCycleId);
 
                 coreAudioProcesses.SetDefaultDevice(device);
+
+                notifications = new Notifications(device.FullName);
+                notifications.Activator();
             }
         }
 
