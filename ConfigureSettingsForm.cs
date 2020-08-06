@@ -97,5 +97,10 @@ namespace AudioOutput_Manager
             CycledAudioOutput_ListView.Items.Remove(selectedItem);
             Properties.Settings.Default.CycledList.Remove(selectedStringItem);
         }
+
+        public void HotKeyCycle_TextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.
+        }
     }
 }

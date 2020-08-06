@@ -14,5 +14,22 @@ namespace AudioOutput_Manager.Utility
         {
             return item.SubItems[1].Text + "," + item.SubItems[0].Text;
         }
+
+        public static string GenerateHotKeyString(KeyPressEventArgs e)
+        {
+            string result = null;
+
+            if ((Control.ModifierKeys & Keys.Control) > 0)
+            {
+                result = "Ctrl";
+            }
+
+            if ((Control.ModifierKeys & Keys.Shift) > 0)
+            {
+                result = "Shift";
+            }
+
+            return result;
+        }
     }
 }
